@@ -28,10 +28,15 @@ where
         //init optimization variables
         let mut state_status = ProblemStateStatus::NonTerminal;
 
-        for i in 0..k {
-            while let Some(action) = self.problem.local_search_action(i, state) {
+        let mut i = 2;
+
+        while i <= k {
+            if let Some(action) = self.problem.local_search_action(i, state) {
                 //execute action
                 action.execute(state, &mut self.problem);
+                i = 2;
+            } else {
+                i += 1;
             }
         }
     }
